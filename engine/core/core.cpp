@@ -24,18 +24,7 @@ void Engine::run() {
         m_engineData.accumulator += frameTime;
 
         input();
-
-        int steps = 0;
-        while (m_engineData.accumulator >= m_engineData.timeStep && steps < m_engineData.maxSteps) {
-            update();
-            m_engineData.accumulator -= m_engineData.timeStep;
-            steps++;
-        }
-
-        if(steps == m_engineData.maxSteps && m_engineData.accumulator >= m_engineData.timeStep) {
-            m_engineData.accumulator = 0.0f;
-        }
-
+        update();
         render();
 
         double currentFrameTime = (SDL_GetPerformanceCounter() - m_engineData.currentTicks) / performanceFrequency;

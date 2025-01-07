@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(CPace)
+project(physim2D)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -50,12 +50,12 @@ file(GLOB_RECURSE ENGINE_SOURCES
 
 set(SOURCES ${GAME_SOURCES} ${ENGINE_SOURCES} ${GLAD_SOURCE})
 
-add_executable(CPace ${SOURCES})
+add_executable(physim2D ${SOURCES})
 
-target_link_libraries(CPace PRIVATE ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARY})
+target_link_libraries(physim2D PRIVATE ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARY})
 
-target_link_libraries(CPace PRIVATE glm)
+target_link_libraries(physim2D PRIVATE glm)
 
-add_custom_command(TARGET CPace POST_BUILD
+add_custom_command(TARGET physim2D POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DLL} ${SDL_IMAGE_DLL} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )

@@ -1,11 +1,11 @@
-workspace "CPace"
+workspace "physim2D"
     configurations { "Debug", "Release" }
     architecture "x64"
-    cppdialect "C++23"
+    cppdialect "C++11"
 
     outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-project "CPace"
+project "physim2D"
     kind "ConsoleApp"
     language "C++"
 
@@ -62,7 +62,6 @@ project "CPace"
         filter "toolset:msc*"
             flags { "MultiProcessorCompile" }
             vectorextensions "AVX"
-            buildoptions { "/Zi" }
 
     filter "system:not windows"
         buildoptions { "-mavx" }

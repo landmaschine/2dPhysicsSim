@@ -11,7 +11,7 @@ struct ScreenData {
 };
 
 struct WindowMetaData {
-    std::string name = "CPace";
+    std::string name = "physim2D";
 };
 
 class Window {
