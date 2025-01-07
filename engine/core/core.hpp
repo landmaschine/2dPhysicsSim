@@ -1,0 +1,50 @@
+#pragma once
+#include "common.hpp"
+#include "input/input.hpp"
+
+typedef struct EngineData_t {
+    uint64_t previousTicks = 0;
+    uint64_t currentTicks = 0;
+    uint64_t elapsedTicks= 0;
+    double accumulator = 0.f;
+
+    const float timeStep = 1.f / 60.f;
+    const double maxFrameTime = 0.25f;
+    const int maxSteps = 5;
+
+    const double targetFrameTime = 1 / 144.f;
+} EngineData;
+
+typedef struct EnginePerformanceData_t {
+    double frameTime = 0;
+    double inputTime = 0;
+    double updateTime = 0;
+    double renderTime = 0;
+} EnginePerformanceData;
+
+class Engine {
+    public:
+        void init_game();
+
+        void init_engine() {
+            memset(&m_event, 0, sizeof(SDL_Event));
+            
+            m_window = std::make_shared<Window>();
+        }
+
+        ~Engine();
+
+        void run();
+    private:
+        void update();
+        void input();
+        void render();
+
+        bool m_quit = false;
+        SDL_Event m_event;
+        Input m_input;
+        EngineData m_engineData;
+        EnginePerformanceData m_enginePerformance;
+
+        std::shared_ptr<Window> m_window;
+};
