@@ -1,9 +1,9 @@
 #pragma once
-#include "core/common.hpp"
-
-#include "glad/glad.h"
-
-#include "loadShader.hpp"
+#include "SDL/SDL3/SDL.h"
+#include <string>
+#include <cassert>
+#include "utils/logger.hpp"
+#include "math/simMath.hpp"
 
 struct ScreenData {
     int width = 1920;

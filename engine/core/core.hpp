@@ -8,11 +8,11 @@ typedef struct EngineData_t {
     uint64_t elapsedTicks= 0;
     double accumulator = 0.f;
 
-    const float timeStep = 1.f / 60.f;
+    const float timeStep = 1.f / 200.f;
     const double maxFrameTime = 0.25f;
     const int maxSteps = 5;
 
-    const double targetFrameTime = 1 / 144.f;
+    const double targetFrameTime = 1 / 165.f;
 } EngineData;
 
 typedef struct EnginePerformanceData_t {
@@ -30,6 +30,8 @@ class Engine {
             memset(&m_event, 0, sizeof(SDL_Event));
             
             m_window = std::make_shared<Window>();
+            m_renderer = std::make_unique<RendererGL>(m_window);
+            m_physics = std::make_unique<PhysicsEngine>();
         }
 
         ~Engine();
@@ -47,4 +49,8 @@ class Engine {
         EnginePerformanceData m_enginePerformance;
 
         std::shared_ptr<Window> m_window;
+        std::unique_ptr<RendererGL> m_renderer;
+        std::unique_ptr<PhysicsEngine> m_physics;
+
+        std::vector<Particle> particles;
 };

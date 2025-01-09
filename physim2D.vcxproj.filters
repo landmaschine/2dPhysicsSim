@@ -1323,6 +1323,8 @@
     <ClInclude Include="third_party\glm\glm\vector_relational.hpp">
       <Filter>third_party\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="engine\renderer\loadShader.hpp" />
+    <ClInclude Include="engine\renderer\renderer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\core\core.cpp">
@@ -1346,5 +1348,6 @@
     <ClCompile Include="third_party\glad\src\glad.c">
       <Filter>third_party\glad\src</Filter>
     </ClCompile>
+    <ClCompile Include="engine\renderer\renderer.cpp" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.zig": "zig",
+        "vector": "cpp",
+        "functional": "cpp",
+        "chrono": "cpp",
+        "iostream": "cpp",
+        "memory": "cpp",
+        "string": "cpp",
+        "cstddef": "cpp",
+        "cstdint": "cpp",
+        "xstring": "cpp"
+    }
+}

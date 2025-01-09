@@ -22,9 +22,9 @@
 #include <chrono>
 #include <set>
 
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include "math/simMath.hpp"
+#include "types/types.hpp"
 
 #include "SDL3/SDL.h"
 #include "SDL_image/SDL_image.h"
@@ -32,5 +32,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
-#include "window/window.hpp"
+#include "renderer/loadShader.hpp"
+#include "renderer/renderer.hpp"
+#include "physics/physics.hpp"
 #include "utils/logger.hpp"
