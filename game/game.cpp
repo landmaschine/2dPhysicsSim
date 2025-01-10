@@ -21,7 +21,7 @@ void Engine::update() {
         const float sub_dt = m_engineData.timeStep / float(m_engineData.maxSteps);
         for(int i = 0; i < m_engineData.maxSteps; ++i) {
             m_physics->setWorldSize(vec2(m_window->getWindowSize().width, m_window->getWindowSize().height));
-            m_physics->update(particles, sub_dt);
+            m_physics->update(particles, m_enginePerformance, sub_dt);
         }
         m_engineData.accumulator -= m_engineData.timeStep;
         numSteps++;
@@ -63,7 +63,7 @@ vec2 mousePos = vec2(0.0f);
     SDL_GetMouseState(&mousePos.x, &mousePos.y);
 
     if(m_input.isMouseButtonPressed(SDL_BUTTON_LEFT)) {
-        playerParticle.radius = 10.f;
+        playerParticle.radius = 50.f;
         playerParticle.targetPos = mousePos;
         playerParticle.isPlayer = true;
     } else {
@@ -72,29 +72,31 @@ vec2 mousePos = vec2(0.0f);
     }
     particles[0] = playerParticle;
 
-    if (m_input.isMouseButtonPressed(SDL_BUTTON_RIGHT)) {
-        constexpr float PI = 3.14159f;
-        const float spawnRadius = 10.f;
-        const int numParticlesToSpawn = 30;
+    if(m_enginePerformance.frameTime < 30.f) {
+        if (m_input.isMouseButtonPressed(SDL_BUTTON_RIGHT)) {
+            constexpr float PI = 3.14159f;
+            const float spawnRadius = 10.f;
+            const int numParticlesToSpawn = 30;
 
-        for (int i = 0; i < numParticlesToSpawn; i++) {
-            float randomAngle = static_cast<float>(rand()) / RAND_MAX * 2.f * PI;
-            float randomDistance = static_cast<float>(rand()) / RAND_MAX * spawnRadius;
-            
-            vec2 offset = {
-                randomDistance * cos(randomAngle),
-                randomDistance * sin(randomAngle)
-            };
-            
-            vec2 spawnPos = mousePos + offset;
+            for (int i = 0; i < numParticlesToSpawn; i++) {
+                float randomAngle = static_cast<float>(rand()) / RAND_MAX * 2.f * PI;
+                float randomDistance = static_cast<float>(rand()) / RAND_MAX * spawnRadius;
+                
+                vec2 offset = {
+                    randomDistance * cos(randomAngle),
+                    randomDistance * sin(randomAngle)
+                };
+                
+                vec2 spawnPos = mousePos + offset;
 
-            Particle newParticle;
-            newParticle.radius = m_engineData.particleRadius;
-            newParticle.curr_pos = spawnPos;
-            newParticle.prev_pos = spawnPos;
-            newParticle.isPlayer = false;
-            
-            particles.push_back(newParticle);
+                Particle newParticle;
+                newParticle.radius = m_engineData.particleRadius;
+                newParticle.curr_pos = spawnPos;
+                newParticle.prev_pos = spawnPos;
+                newParticle.isPlayer = false;
+                
+                particles.push_back(newParticle);
+            }
         }
     }
 }

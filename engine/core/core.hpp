@@ -10,7 +10,7 @@ typedef struct EngineData_t {
 
     const float timeStep = 1.f / 200.f;
     const double maxFrameTime = 0.25f;
-    const int maxSteps = 7;
+    const int maxSteps = 5;
 
     const double targetFrameTime = 1 / 60.f;
 

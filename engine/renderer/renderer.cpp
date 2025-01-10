@@ -160,11 +160,10 @@ void RendererGL::initCircleBuffer(int segments) {
 
 void RendererGL::createQuad() {
     float quadVertices[] = {
-        // pos (x,y,z)    // tex coords (s,t)
-        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // bottom left
-        1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // bottom right
-        0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // top left
-        1.0f, 1.0f, 0.0f, 1.0f, 1.0f   // top right
+        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f
     };
 
     glGenVertexArrays(1, &textVAO);
@@ -244,6 +243,8 @@ void RendererGL::renderPerformanceText(const EnginePerformanceData& perf, const 
     std::stringstream ss;
     ss << std::fixed << std::setprecision(2)
        << "Physics time: " << perf.updateTime << " ms | "
+       << "Verlet time: " << perf.verletTime << " ms | "
+       << "Collision time " << perf.collisionTime << " ms | "
        << "Render Time: " << perf.renderTime << " ms | "
        << "FPS: " << 1000.0f / perf.frameTime << " | "
        << "Particles: " << particles.size();

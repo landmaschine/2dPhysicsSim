@@ -2,7 +2,7 @@
 
 struct GpuCollisionData {
     float x;
-    float y; 
+    float y;
     float r;
 };
 
@@ -29,7 +29,7 @@ void resolveCollision(inout vec2 posA, float radiusA, vec2 posB, float radiusB) 
         float dist = sqrt(dist2);
         vec2 n = v / dist;
         float mass_ratio_1 = radiusA / (radiusA + radiusB);
-        float mass_ratio_2 = radiusB / (radiusB + radiusA);
+        float mass_ratio_2 = radiusB / (radiusA + radiusB);
         float delta = 0.5 * responseCoef * (dist - min_dist);
 
         posA -= n * (mass_ratio_2 * delta);
@@ -65,18 +65,19 @@ void main() {
     if (id >= particleCount) return;
 
     GpuCollisionData particle = inputData.data[id];
-
     vec2 position = vec2(particle.x, particle.y);
+    float radius = particle.r;
 
     for(int i = 0; i < particleCount; i++) {
         if(i != id) {
             GpuCollisionData other = inputData.data[i];
-
-            resolveCollision(position, particle.r, vec2(other.x, other.y), other.r);
+            vec2 otherPos = vec2(other.x, other.y);
+            
+            resolveCollision(position, radius, otherPos, other.r);
         }
     }
 
-    clampToBounds(position, particle.r, world_size);
+    clampToBounds(position, radius, world_size);
 
     particle.x = position.x;
     particle.y = position.y;

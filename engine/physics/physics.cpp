@@ -30,11 +30,13 @@ void PhysicsEngine::init(size_t maxParticles) {
     glBufferData(GL_SHADER_STORAGE_BUFFER, maxParticles * sizeof(GpuCollisionData), nullptr, GL_DYNAMIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, outputBuffer);  
 
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0); 
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
-void PhysicsEngine::update(std::vector<Particle>& particles, float dt) {
+void PhysicsEngine::update(std::vector<Particle>& particles, EnginePerformanceData& perf, float dt) {
     const vec2 gravity{0.f, 1500.f};
+
+    auto verlstart = std::chrono::high_resolution_clock::now();
 
     for(auto& particle : particles) {
         if(particle.isPlayer) {
@@ -49,7 +51,16 @@ void PhysicsEngine::update(std::vector<Particle>& particles, float dt) {
             particle.accel = vec2(0.f, 0.f);
         }
     }
+
+    auto verlend = std::chrono::high_resolution_clock::now();
+    auto verlduration = std::chrono::duration_cast<std::chrono::microseconds>(verlend - verlstart);
+    perf.verletTime = verlduration.count() / 1000.f;
+
+    auto collstart = std::chrono::high_resolution_clock::now();
     updateCollisions(particles);
+    auto collend = std::chrono::high_resolution_clock::now();
+    auto collduration = std::chrono::duration_cast<std::chrono::microseconds>(collend - collstart);
+    perf.collisionTime = collduration.count() / 1000.f;
 }
 
 void PhysicsEngine::updateCollisions(std::vector<Particle>& particles) {

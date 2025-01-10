@@ -15,7 +15,7 @@ public:
         particle.curr_pos = pos;
     }
     void init(size_t maxParticles);
-    void update(std::vector<Particle>& particles, float dt);
+    void update(std::vector<Particle>& particles, EnginePerformanceData& perf, float dt);
     void setWorldSize(vec2 size) { worldSize = size; }
 private:
     ComputeShader collShader;
@@ -25,14 +25,15 @@ private:
         float y;
         float r;
     };
+    
+    unsigned int inputBuffer;
+    unsigned int outputBuffer;
+    size_t currentBufferSize = 0;
 
     std::vector<GpuCollisionData> collisionData;
     std::vector<GpuCollisionData> updatedCollisionData;
     
     void updateCollisions(std::vector<Particle>& particles);
-
-    unsigned int inputBuffer;
-    unsigned int outputBuffer;
 
     const float RESPONSE_COEF = 1.0f;
     vec2 worldSize;
