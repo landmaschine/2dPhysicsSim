@@ -69,6 +69,8 @@ inline void InitializeParticles(size_t particleCount, const float radius, std::s
             particle.prev_pos = position;
             particle.accel = vec2(0.f, 0.f);
             particle.radius = radius;
+            particle.targetPos = vec2(0.0f, 0.0f);
+            particle.isPlayer = false;
             particles.push_back(particle);
             placed++;
         }

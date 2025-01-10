@@ -25,6 +25,7 @@
 #include <cmath>
 #include "math/simMath.hpp"
 #include "types/types.hpp"
+#include "utils/ComputeShader.hpp"
 
 #include "SDL3/SDL.h"
 #include "SDL_image/SDL_image.h"

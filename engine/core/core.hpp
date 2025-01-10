@@ -10,9 +10,13 @@ typedef struct EngineData_t {
 
     const float timeStep = 1.f / 200.f;
     const double maxFrameTime = 0.25f;
-    const int maxSteps = 5;
+    const int maxSteps = 7;
 
     const double targetFrameTime = 1 / 165.f;
+
+    const size_t MaxParticles = 10000;
+    const size_t spawnParticles = 1 - 1;
+    const float particleRadius = 3.f;
 } EngineData;
 
 typedef struct EnginePerformanceData_t {
@@ -32,6 +36,7 @@ class Engine {
             m_window = std::make_shared<Window>();
             m_renderer = std::make_unique<RendererGL>(m_window);
             m_physics = std::make_unique<PhysicsEngine>();
+            m_physics->init(m_engineData.MaxParticles);
         }
 
         ~Engine();
@@ -51,6 +56,6 @@ class Engine {
         std::shared_ptr<Window> m_window;
         std::unique_ptr<RendererGL> m_renderer;
         std::unique_ptr<PhysicsEngine> m_physics;
-
+        Particle playerParticle;
         std::vector<Particle> particles;
 };

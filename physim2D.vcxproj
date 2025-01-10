@@ -118,11 +118,13 @@ IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I
     <ClInclude Include="engine\input\input.hpp" />
     <ClInclude Include="engine\math\simMath.hpp" />
     <ClInclude Include="engine\math\vec2.hpp" />
+    <ClInclude Include="engine\physics\physics.hpp" />
     <ClInclude Include="engine\renderer\loadShader.hpp" />
     <ClInclude Include="engine\renderer\renderer.hpp" />
     <ClInclude Include="engine\utils\logger.hpp" />
     <ClInclude Include="engine\window\loadShader.hpp" />
     <ClInclude Include="engine\window\window.hpp" />
+    <ClInclude Include="game\game.hpp" />
     <ClInclude Include="third_party\glm\glm\common.hpp" />
     <ClInclude Include="third_party\glm\glm\detail\_features.hpp" />
     <ClInclude Include="third_party\glm\glm\detail\_fixes.hpp" />
@@ -543,6 +545,7 @@ IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I
   <ItemGroup>
     <ClCompile Include="engine\core\core.cpp" />
     <ClCompile Include="engine\input\input.cpp" />
+    <ClCompile Include="engine\physics\physics.cpp" />
     <ClCompile Include="engine\renderer\renderer.cpp" />
     <ClCompile Include="engine\utils\logger.cpp" />
     <ClCompile Include="engine\window\window.cpp" />

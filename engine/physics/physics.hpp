@@ -1,5 +1,6 @@
 #pragma once
 #include "core/common.hpp"
+#include "glad/glad.h"
 
 class PhysicsEngine {
 public:
@@ -13,8 +14,27 @@ public:
     void setPos(Particle& particle, vec2 pos) {
         particle.curr_pos = pos;
     }
-
-    void update(std::vector<Particle>& particles, float dt, bool isFirstStep);
+    void init(size_t maxParticles);
+    void update(std::vector<Particle>& particles, float dt);
+    void setWorldSize(vec2 size) { worldSize = size; }
 private:
+    ComputeShader collShader;
+     
+    struct GpuCollisionData {
+        float x;
+        float y;
+        float r;
+    };
 
+    std::vector<GpuCollisionData> collisionData;
+    std::vector<GpuCollisionData> updatedCollisionData;
+    
+    void updateCollisions(std::vector<Particle>& particles);
+
+    unsigned int computeProgram;
+    unsigned int inputBuffer;
+    unsigned int outputBuffer;
+
+    const float RESPONSE_COEF = 1.0f;
+    vec2 worldSize;
 };

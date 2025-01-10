@@ -1325,6 +1325,8 @@
     </ClInclude>
     <ClInclude Include="engine\renderer\loadShader.hpp" />
     <ClInclude Include="engine\renderer\renderer.hpp" />
+    <ClInclude Include="engine\physics\physics.hpp" />
+    <ClInclude Include="game\game.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\core\core.cpp">
@@ -1349,5 +1351,6 @@
       <Filter>third_party\glad\src</Filter>
     </ClCompile>
     <ClCompile Include="engine\renderer\renderer.cpp" />
+    <ClCompile Include="engine\physics\physics.cpp" />
   </ItemGroup>
 </Project>
