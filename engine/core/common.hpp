@@ -21,8 +21,8 @@
 #include <ctime>
 #include <chrono>
 #include <set>
+#include <algorithm>
 
-#include <cmath>
 #include "math/simMath.hpp"
 #include "types/types.hpp"
 #include "utils/ComputeShader.hpp"

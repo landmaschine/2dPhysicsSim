@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL/SDL3/SDL.h"
+#include "SDL_ttf/SDL3_ttf/SDL_ttf.h"
 #include <string>
 #include <cassert>
 #include "utils/logger.hpp"

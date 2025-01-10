@@ -67,7 +67,7 @@ public:
         glUseProgram(ID); 
     }
     
-    void setBool(const std::string& name, bool& value) const {
+    void setBool(const std::string& name, bool value) const {
         int location;
         auto it = uniformCache.find(name);
         if (it != uniformCache.end()) {
@@ -82,7 +82,7 @@ public:
         glUniform1i(location, (int)value);
     }
 
-    void setInt(const std::string& name, int& value) const {
+    void setInt(const std::string& name, int value) const {
         int location;
         auto it = uniformCache.find(name);
         if (it != uniformCache.end()) {
@@ -140,6 +140,21 @@ public:
             uniformCache[name] = location;
         }
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+    }
+    
+    void setVec4(const std::string& name, glm::vec4 value) const {
+        int location;
+        auto it = uniformCache.find(name);
+        if(it != uniformCache.end()) {
+            location = it->second;
+        } else {
+            location = glGetUniformLocation(ID, name.c_str());
+            if(location == -1) {
+                std::cerr << "Warning: Uniform '" << name << "' doesnt exist or is not used in the shader." << std::endl;
+            }
+            uniformCache[name] = location;
+        }
+        glUniform4f(location, value.x, value.y, value.z, value.w);
     }
 
 private:

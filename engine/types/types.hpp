@@ -9,3 +9,10 @@ struct Particle {
     float radius;
     bool isPlayer;
 };
+
+typedef struct EnginePerformanceData_t {
+    double frameTime = 0;
+    double inputTime = 0;
+    double updateTime = 0;
+    double renderTime = 0;
+} EnginePerformanceData;

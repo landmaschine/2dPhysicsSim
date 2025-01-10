@@ -6,6 +6,11 @@ Window::Window() {
         assert(false && "Failed to init Renderer");
     }
 
+    if(!TTF_Init()) {
+        ERRLOG("Failed to init SDL_ttf");
+        assert(false);
+    } 
+
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);

@@ -41,6 +41,9 @@ void Engine::render() {
     
     m_renderer->renderClear();
     m_renderer->renderCircles(particles);
+
+    m_renderer->renderPerformanceText(m_enginePerformance, particles);
+
     m_renderer->renderScreen();
     
     auto end = std::chrono::high_resolution_clock::now();
@@ -48,9 +51,6 @@ void Engine::render() {
     m_enginePerformance.renderTime = duration.count() / 1000.0f;
 
     m_enginePerformance.frameTime = m_enginePerformance.renderTime + m_enginePerformance.updateTime;
-    std::cout << "Physics time: " << m_enginePerformance.updateTime << " ms | Render Time: " << m_enginePerformance.renderTime << 
-    " ms | FPS: " << 1000.f / (m_enginePerformance.frameTime) << " | Particles: " << particles.size() <<"\n";
-
 }
 
 void Engine::input() {

@@ -1,6 +1,7 @@
 #include "core.hpp"
 
 Engine::~Engine() {
+    TTF_Quit();
     SDL_Quit();
 }
 

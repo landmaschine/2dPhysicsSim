@@ -20,6 +20,17 @@ RendererGL::RendererGL(std::shared_ptr<Window>& window) : m_window(window) {
 
     m_shader.init("C:/Users/leon/Documents/dev/2dPhysicsSim/bin/shaders/vertex.glsl", "C:/Users/leon/Documents/dev/2dPhysicsSim/bin/shaders/fragment.glsl");
 
+    font = TTF_OpenFont("C:/Users/leon/Documents/dev/2dPhysicsSim/bin/fonts/DepartureMono-Regular.otf", 22);
+    if(!font) {
+        ERRLOG("Failed to load font");
+        assert(false);
+    }
+
+    texture = 0;
+
+    textShader.init("C:/Users/leon/Documents/dev/2dPhysicsSim/bin/shaders/text_vertex.glsl", "C:/Users/leon/Documents/dev/2dPhysicsSim/bin/shaders/text_fragment.glsl");
+    createQuad();
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &instanceVBO);
     glGenBuffers(1, &VBO);
@@ -145,4 +156,98 @@ void RendererGL::initCircleBuffer(int segments) {
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+}
+
+void RendererGL::createQuad() {
+    float quadVertices[] = {
+        // pos (x,y,z)    // tex coords (s,t)
+        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // bottom left
+        1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  // bottom right
+        0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // top left
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f   // top right
+    };
+
+    glGenVertexArrays(1, &textVAO);
+    glGenBuffers(1, &textVBO);
+    
+    glBindVertexArray(textVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, textVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+
+    glBindVertexArray(0);
+}
+
+void RendererGL::renderText(std::string text, SDL_Color color, float x, float y) {
+   if(!font) {
+        ERRLOG("Font not loaded!");
+        return;
+    }
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), text.length(), color);
+    if (!surface) {
+        ERRLOG("Failed to render text surface!");
+        return;
+    }
+
+    SDL_Surface* rgbaSurface = SDL_ConvertSurface(surface, SDL_PIXELFORMAT_RGBA32);
+    SDL_DestroySurface(surface);
+    
+    if (!rgbaSurface) {
+        ERRLOG("Failed to convert text surface to RGBA!");
+        return;
+    }
+
+    GLuint textTexture;
+    glGenTextures(1, &textTexture);
+    glBindTexture(GL_TEXTURE_2D, textTexture);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rgbaSurface->w, rgbaSurface->h, 
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, rgbaSurface->pixels);
+
+    textShader.use();
+    textShader.setMat4("projection", projection);
+    textShader.setInt("textTexture", 0);
+    textShader.setVec4("textColor", glm::vec4(color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f));
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(x, y, 0.0f));
+    model = glm::scale(model, glm::vec3(rgbaSurface->w, rgbaSurface->h, 1.0f));
+    textShader.setMat4("model", model);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textTexture);
+    glBindVertexArray(textVAO);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_BLEND);
+    
+    SDL_DestroySurface(rgbaSurface);
+    glDeleteTextures(1, &textTexture); 
+}
+
+void RendererGL::renderPerformanceText(const EnginePerformanceData& perf, const std::vector<Particle>& particles) {
+    std::stringstream ss;
+    ss << std::fixed << std::setprecision(2)
+       << "Physics time: " << perf.updateTime << " ms | "
+       << "Render Time: " << perf.renderTime << " ms | "
+       << "FPS: " << 1000.0f / perf.frameTime << " | "
+       << "Particles: " << particles.size();
+    
+    SDL_Color white = {255, 255, 255, 255};
+    renderText(ss.str(), white, 10.0f, 10.0f);
 }

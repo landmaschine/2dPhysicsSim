@@ -17,14 +17,8 @@ typedef struct EngineData_t {
     const size_t MaxParticles = 100000;
     const size_t spawnParticles = 1 - 1;
     const float particleRadius = 3.f;
+    const float maxParticleRadius = 10.f;
 } EngineData;
-
-typedef struct EnginePerformanceData_t {
-    double frameTime = 0;
-    double inputTime = 0;
-    double updateTime = 0;
-    double renderTime = 0;
-} EnginePerformanceData;
 
 class Engine {
     public:
@@ -36,6 +30,7 @@ class Engine {
             m_window = std::make_shared<Window>();
             m_renderer = std::make_unique<RendererGL>(m_window);
             m_physics = std::make_unique<PhysicsEngine>();
+            vec2 worldSize = vec2(m_window->getWindowSize().width, m_window->getWindowSize().height);
             m_physics->init(m_engineData.MaxParticles);
         }
 

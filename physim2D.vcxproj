@@ -59,24 +59,26 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WINDOWS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>third_party;third_party\SDL;third_party\SDL_image;third_party\glad\include;engine;third_party\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>third_party;third_party\SDL;third_party\SDL_image;third_party\SDL_ttf;third_party\glad\include;engine;third_party\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>third_party\SDL;third_party\SDL_image;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>third_party\SDL;third_party\SDL_image;third_party\SDL_ttf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST $(SolutionDir)\third_party\SDL\SDL3.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL\SDL3.dll bin\Debug-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL\SDL3.dll bin\Debug-windows-x86_64 &gt; nul)
-IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Debug-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Debug-windows-x86_64 &gt; nul)</Command>
+IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Debug-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Debug-windows-x86_64 &gt; nul)
+IF EXIST $(SolutionDir)\third_party\SDL_ttf\SDL3_ttf.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL_ttf\SDL3_ttf.dll bin\Debug-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL_ttf\SDL3_ttf.dll bin\Debug-windows-x86_64 &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -84,7 +86,7 @@ IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>third_party;third_party\SDL;third_party\SDL_image;third_party\glad\include;engine;third_party\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>third_party;third_party\SDL;third_party\SDL_image;third_party\SDL_ttf;third_party\glad\include;engine;third_party\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -94,6 +96,7 @@ IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -101,12 +104,13 @@ IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>third_party\SDL;third_party\SDL_image;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>third_party\SDL;third_party\SDL_image;third_party\SDL_ttf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST $(SolutionDir)\third_party\SDL\SDL3.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL\SDL3.dll bin\Release-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL\SDL3.dll bin\Release-windows-x86_64 &gt; nul)
-IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Release-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Release-windows-x86_64 &gt; nul)</Command>
+IF EXIST $(SolutionDir)\third_party\SDL_image\SDL3_image.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Release-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL_image\SDL3_image.dll bin\Release-windows-x86_64 &gt; nul)
+IF EXIST $(SolutionDir)\third_party\SDL_ttf\SDL3_ttf.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\third_party\SDL_ttf\SDL3_ttf.dll bin\Release-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\third_party\SDL_ttf\SDL3_ttf.dll bin\Release-windows-x86_64 &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

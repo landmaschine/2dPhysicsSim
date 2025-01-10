@@ -113,6 +113,21 @@ public:
         glUniform2f(location, value.x, value.y);
     }
 
+    void setIVec2(const std::string& name, glm::ivec2& value) {
+        int location;
+        auto it = uniformCache.find(name);
+        if (it != uniformCache.end()) {
+            location = it->second;
+        } else {
+            location = glGetUniformLocation(ID, name.c_str());
+            if (location == -1) {
+                std::cerr << "Warning: Uniform '" << name << "' doesn't exist or is not used in the shader." << std::endl;
+            }
+            uniformCache[name] = location;
+        }
+        glUniform2i(location, value.x, value.y);
+    }
+
     void setMat4(const std::string& name, glm::mat4& value) const {
         int location;
         auto it = uniformCache.find(name);

@@ -1,0 +1,15 @@
+void resolveCollision(inout vec2 posA, float radiusA, vec2 posB, float radiusB) {
+    vec2 v = posA - posB;
+    float min_dist = radiusA + radiusB;
+    float dist2 = v.x * v.x + v.y * v.y;
+
+    if(dist2 < min_dist * min_dist) {
+        float dist = sqrt(dist2);
+        vec2 n = v / dist;
+        float mass_ratio_1 = radiusA / (radiusA + radiusB);
+        float mass_ratio_2 = radiusB / (radiusB + radiusA);
+        float delta = 0.5 * responseCoef * (dist - min_dist);
+
+        posA -= n * (mass_ratio_2 * delta);
+    }
+}

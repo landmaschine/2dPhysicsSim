@@ -1,7 +1,7 @@
 workspace "physim2D"
     configurations { "Debug", "Release" }
     architecture "x64"
-    cppdialect "C++11"
+    cppdialect "C++17"
 
     outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -34,6 +34,7 @@ project "physim2D"
         "third_party",
         "third_party/SDL",
         "third_party/SDL_image",
+        "third_party/SDL_ttf",
         "third_party/glad/include",
         "engine",
         "third_party/glm"
@@ -41,17 +42,20 @@ project "physim2D"
 
     libdirs {
         "third_party/SDL",
-        "third_party/SDL_image"
+        "third_party/SDL_image",
+        "third_party/SDL_ttf"
     }
 
     links {
         "SDL3",
-        "SDL3_image"
+        "SDL3_image",
+        "SDL3_ttf"
     }
 
     postbuildcommands {
         "{COPY} %{wks.location}/third_party/SDL/SDL3.dll %{cfg.targetdir}",
-        "{COPY} %{wks.location}/third_party/SDL_image/SDL3_image.dll %{cfg.targetdir}"
+        "{COPY} %{wks.location}/third_party/SDL_image/SDL3_image.dll %{cfg.targetdir}",
+        "{COPY} %{wks.location}/third_party/SDL_ttf/SDL3_ttf.dll %{cfg.targetdir}"
     }
 
     filter "system:windows"

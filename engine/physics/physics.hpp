@@ -31,7 +31,6 @@ private:
     
     void updateCollisions(std::vector<Particle>& particles);
 
-    unsigned int computeProgram;
     unsigned int inputBuffer;
     unsigned int outputBuffer;
 

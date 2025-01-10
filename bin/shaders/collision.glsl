@@ -38,22 +38,26 @@ void resolveCollision(inout vec2 posA, float radiusA, vec2 posB, float radiusB) 
 
 void clampToBounds(inout vec2 position, float radius, vec2 worldSize) {
     const int WALL_SEGMENTS = 3;
-    
+
     for(int i = 0; i < WALL_SEGMENTS; i++) {
         float t = float(i) / float(WALL_SEGMENTS - 1);
-        
+
         vec2 leftPos = vec2(0.0, mix(position.y - radius, position.y + radius, t));
         resolveCollision(position, radius, leftPos, radius);
-        
+
         vec2 rightPos = vec2(worldSize.x, mix(position.y - radius, position.y + radius, t));
         resolveCollision(position, radius, rightPos, radius);
-        
+
         vec2 topPos = vec2(mix(position.x - radius, position.x + radius, t), 0.0);
         resolveCollision(position, radius, topPos, radius);
-        
+
         vec2 bottomPos = vec2(mix(position.x - radius, position.x + radius, t), worldSize.y);
         resolveCollision(position, radius, bottomPos, radius);
     }
+
+    position = clamp(position, 
+                    vec2(radius, radius), 
+                    vec2(worldSize.x - radius, worldSize.y - radius));
 }
 
 void main() {
