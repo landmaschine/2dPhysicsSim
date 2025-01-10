@@ -13,6 +13,15 @@
     <Filter Include="engine\math">
       <UniqueIdentifier>{D481480D-4037-C102-C92B-BBD935E0B706}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\physics">
+      <UniqueIdentifier>{8D421EA7-7910-12AD-62A4-82D34E11EE11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\renderer">
+      <UniqueIdentifier>{2166C161-8DF1-2E26-9602-B21A020D8B26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\types">
+      <UniqueIdentifier>{FF7FE4B6-EBE2-735B-9468-AC1180AA3FDE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="engine\utils">
       <UniqueIdentifier>{BBBDF3B6-A720-835B-50A6-BB113CE84EDE}</UniqueIdentifier>
     </Filter>
@@ -66,11 +75,23 @@
     <ClInclude Include="engine\math\vec2.hpp">
       <Filter>engine\math</Filter>
     </ClInclude>
-    <ClInclude Include="engine\utils\logger.hpp">
+    <ClInclude Include="engine\physics\physics.hpp">
+      <Filter>engine\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\loadShader.hpp">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\renderer\renderer.hpp">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\types\types.hpp">
+      <Filter>engine\types</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\utils\ComputeShader.hpp">
       <Filter>engine\utils</Filter>
     </ClInclude>
-    <ClInclude Include="engine\window\loadShader.hpp">
-      <Filter>engine\window</Filter>
+    <ClInclude Include="engine\utils\logger.hpp">
+      <Filter>engine\utils</Filter>
     </ClInclude>
     <ClInclude Include="engine\window\window.hpp">
       <Filter>engine\window</Filter>
@@ -1323,10 +1344,6 @@
     <ClInclude Include="third_party\glm\glm\vector_relational.hpp">
       <Filter>third_party\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="engine\renderer\loadShader.hpp" />
-    <ClInclude Include="engine\renderer\renderer.hpp" />
-    <ClInclude Include="engine\physics\physics.hpp" />
-    <ClInclude Include="game\game.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\core\core.cpp">
@@ -1334,6 +1351,12 @@
     </ClCompile>
     <ClCompile Include="engine\input\input.cpp">
       <Filter>engine\input</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\physics\physics.cpp">
+      <Filter>engine\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\renderer\renderer.cpp">
+      <Filter>engine\renderer</Filter>
     </ClCompile>
     <ClCompile Include="engine\utils\logger.cpp">
       <Filter>engine\utils</Filter>
@@ -1350,7 +1373,5 @@
     <ClCompile Include="third_party\glad\src\glad.c">
       <Filter>third_party\glad\src</Filter>
     </ClCompile>
-    <ClCompile Include="engine\renderer\renderer.cpp" />
-    <ClCompile Include="engine\physics\physics.cpp" />
   </ItemGroup>
 </Project>

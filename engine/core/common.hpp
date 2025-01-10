@@ -29,6 +29,7 @@
 
 #include "SDL3/SDL.h"
 #include "SDL_image/SDL_image.h"
+#include "SDL_ttf/SDL3_ttf/SDL_ttf.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"

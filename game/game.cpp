@@ -13,11 +13,22 @@ void Engine::init_game() {
 
 void Engine::update() {
     auto start = std::chrono::high_resolution_clock::now();
-    
-    const float sub_dt = m_engineData.timeStep / float(m_engineData.maxSteps);
-    for(int i = 0; i < m_engineData.maxSteps; ++i) {
-        m_physics->setWorldSize(vec2(m_window->getWindowSize().width, m_window->getWindowSize().height));
-        m_physics->update(particles, sub_dt);
+
+    int numSteps = 0;
+    const int maxCatchUpSteps = 3;
+
+    while (m_engineData.accumulator >= m_engineData.timeStep && numSteps < maxCatchUpSteps) {
+        const float sub_dt = m_engineData.timeStep / float(m_engineData.maxSteps);
+        for(int i = 0; i < m_engineData.maxSteps; ++i) {
+            m_physics->setWorldSize(vec2(m_window->getWindowSize().width, m_window->getWindowSize().height));
+            m_physics->update(particles, sub_dt);
+        }
+        m_engineData.accumulator -= m_engineData.timeStep;
+        numSteps++;
+    }
+
+    if(numSteps >= maxCatchUpSteps) {
+        m_engineData.accumulator = 0;
     }
 
     auto end = std::chrono::high_resolution_clock::now();
@@ -78,7 +89,7 @@ vec2 mousePos = vec2(0.0f);
             vec2 spawnPos = mousePos + offset;
 
             Particle newParticle;
-            newParticle.radius = 3.f;
+            newParticle.radius = m_engineData.particleRadius;
             newParticle.curr_pos = spawnPos;
             newParticle.prev_pos = spawnPos;
             newParticle.isPlayer = false;

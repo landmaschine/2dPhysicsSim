@@ -15,6 +15,10 @@ set(SDL_IMAGE_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/third_party/SDL_image)
 set(SDL_IMAGE_LIBRARY ${CMAKE_SOURCE_DIR}/third_party/SDL_image/SDL3_image.lib)
 set(SDL_IMAGE_DLL ${CMAKE_SOURCE_DIR}/third_party/SDL_image/SDL3_image.dll)
 
+set(SDL_TTF_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/third_party/SDL_ttf/SDL3_ttf)
+set(SDL_TTF_LIBRARY ${CMAKE_SOURCE_DIR}/third_party/SDL_ttf/SDL3_ttf.lib)
+set(SDL_TTF_DLL ${CMAKE_SOURCE_DIR}/third_party/SDL_ttf/SDL3_ttf.dll)
+
 set(GLAD_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/third_party/glad/include)
 set(GLAD_SOURCE ${CMAKE_SOURCE_DIR}/third_party/glad/src/glad.c)
 
@@ -35,6 +39,7 @@ include_directories(
     ${THIRD_PARTY}
     ${SDL_INCLUDE_DIR}
     ${SDL_IMAGE_INCLUDE_DIR}
+    ${SDL_TTF_INCLUDE_DIR}
     ${GLAD_INCLUDE_DIR}
     ${ENGINE_DIR}
 )
@@ -52,10 +57,10 @@ set(SOURCES ${GAME_SOURCES} ${ENGINE_SOURCES} ${GLAD_SOURCE})
 
 add_executable(physim2D ${SOURCES})
 
-target_link_libraries(physim2D PRIVATE ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARY})
+target_link_libraries(physim2D PRIVATE ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARY} ${SDL_TTF_LIBRARY})
 
 target_link_libraries(physim2D PRIVATE glm)
 
 add_custom_command(TARGET physim2D POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DLL} ${SDL_IMAGE_DLL} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+    COMMAND ${CMAKE_COMMAND} -E copy ${SDL_DLL} ${SDL_IMAGE_DLL} ${SDL_TTF_DLL} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )

@@ -12,9 +12,9 @@ typedef struct EngineData_t {
     const double maxFrameTime = 0.25f;
     const int maxSteps = 7;
 
-    const double targetFrameTime = 1 / 165.f;
+    const double targetFrameTime = 1 / 60.f;
 
-    const size_t MaxParticles = 10000;
+    const size_t MaxParticles = 100000;
     const size_t spawnParticles = 1 - 1;
     const float particleRadius = 3.f;
 } EngineData;
